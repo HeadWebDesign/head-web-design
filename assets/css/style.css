@@ -18,34 +18,42 @@
 }
 
 body {
-    font-family: 'Nunito Sans', sans-serif;
+    font-family: 'consolas', 'Source Code Pro', sans-serif;
+    background-color: #000;
+    color: #fff;
 }
 
 body a {
-    text-decoration: none;
+    color: #8f897e;
+    font-weight: 700;
+    text-decoration: none !important;
 }
 
 @media(hover: hover) and (pointer: fine) {
     body a:hover {
-        color: #8b817f;
+        color: #008f18;
     }
 }
 
-h1, h2, h3 {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-    padding-top: 5px;
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Tektur', sans-serif;
+    padding: 5px 0;
 }
 
 ul {
     list-style-type: none;
 }
 
+.shrink-hide {
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
 /* dropdown menu toggle buttons */
 
 .menu-toggle-btn {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 700;
+    font-family: 'Tektur', sans-serif;
     padding: 10px 0;
 
     display: flex;
@@ -55,12 +63,12 @@ ul {
 
 /* to counter default Bootstrap button behaviour */
 .menu-toggle-btn:focus:not(:focus-visible) {
-    outline: none;
+    outline: none !important;
 }
 
 @media(hover: hover) and (pointer: fine) {
     .menu-toggle-btn:hover {
-        color: #8b817f;
+        color: #008f18;
     }
 }
 
@@ -70,6 +78,7 @@ ul {
 
 .menu-icon {
     width: 30px;
+    margin-right: 10px;
     padding: 4px 0;
 }
 
@@ -102,23 +111,81 @@ ul {
     transform: translateY(-2px) rotate(-45deg);
 }
 
-.menu-toggle-btn-active .menu-btn-text {
-    text-transform: uppercase;
-}
-
 .toggle-btn {
     background: transparent;
     color: #fff;
     cursor: pointer;
 }
 
+/* general buttons */
+
+button:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+.btn {
+    font-family: 'Tektur', sans-serif;
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.btn:focus {
+    color: #fff !important;
+}
+
+.btn-cta {
+    font-weight: bold;
+    border-radius: 23px;
+    width: 160px;
+}
+
+.btn-darkgrey {
+    color: #fff;
+    border: 1px solid #0a0a0a;
+    background: linear-gradient(135deg, #2c3136, #1d2023);
+    width: auto !important;
+}
+
+.btn-effect, .btn-effect:focus {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7),
+                -3px -3px 6px rgba(255, 255, 255, 0.15),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.2),
+                inset -4px -4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.btn-effect:active {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7),
+                -3px -3px 6px rgba(255, 255, 255, 0.15),
+                inset -4px -4px 8px rgba(255, 255, 255, 0.2),
+                inset 4px 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+@media(hover: hover) and (pointer: fine) {
+    .btn-darkgrey:hover {
+        color: #008f18 !important;
+    }
+}
+
+.btn-darkgrey:focus {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.link-btn {
+    background: transparent;
+    text-decoration: underline;
+}
+
+.btn-wide-fit {
+    width: auto !important;
+}
+
 /* ------------ main header ----------- */
 
 #main-header {
     background-color: #000;
-    height: 100px;
+    height: 140px;
     width: 100%;
     position: fixed;
+    top: 0;
     z-index: 5;
 
     display: flex;
@@ -131,38 +198,55 @@ ul {
 
 @media(hover: hover) and (pointer: fine) {
     #main-header a:hover {
-        color: #8b817f;
-        text-decoration: none;
+        color: #008f18;
+        text-decoration: none !important;
     }
 }
 
 /* header logo */
 
 #header-logo {
-    height: 100px;
-    margin-left: 10px;
+    height: 100%;
+    margin: 0 10px;
+    
+    display: flex;
+    align-items: center;
 }
 
-#header-logo img {
-    height: 100%;
+.logo-size {
+    height: 130px;
+    width: 130px;
 }
 
 #header-logo p {
+    /* font-family: 'Orbitron', sans-serif; */
     font-family: 'Tektur', sans-serif;
     font-weight: 400;
-    font-size: 2.9rem;
     line-height: 1;
     color: #008f18;
-    display: inline-block;
-    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.logo-txt-std {
+    font-size: 3.5rem;
+}
+
+.logo-txt-solo {
+    font-size: 4rem;
+}
+
+#header-logo img, #header-logo p {
+    transition: all 0.35s ease-in-out;
+}
+
+.logo-txt-br, .logo-txt-br-solo {
+    display: none;
 }
 
 /* header navigation */
 
 #main-menu {
-    font-family: 'Roboto Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.125rem;
+    font-family: 'Tektur', sans-serif;
     margin-right: 10px;
 
     display: flex;
@@ -170,30 +254,51 @@ ul {
     justify-content: space-between;
 }
 
-#main-menu-btn.menu-toggle-btn {
-    width: 110px;
+#main-menu a {
+    font-weight: 400;
+}
+
+#main-menu-btn {
+    display: none;
 }
 
 .main-menu-responsive {
     position: absolute;
-    top: 100px;
+    top: 140px;
     left: 0;
     width: 100%;
     background-color: #000;
     text-align: center;
 }
 
+.main-menu-responsive ul {
+    padding: 20px 0;
+    margin: 0;
+    border: 0;
+}
+
 .main-menu-responsive li {
     display: inline;
     text-align: center;
-    padding: 0 10px;
+    padding: 20px 30px;
+    margin: 0;
+    border: 0;
+}
+
+.main-menu-item {
+    font-size: 1.25rem;
 }
 
 /* navigation dropdown menus */
 
 .navbar-dropdown-btn {
     display: inline-block;
+    color: #fff;
     padding: 0 10px;
+}
+
+.navbar-dropdown-btn.menu-toggle-btn-active {
+    color: #008f18;
 }
 
 .navbar-dropdown-menu-container {
@@ -204,17 +309,29 @@ ul {
     border-radius: 0 0 5px 5px;
     background-color: #000;
     position: absolute;
-    top: 40px;
+    top: 60px;
     left: 0;
     height: 0;
-    width: 300px;
+    width: 205px;
     overflow: hidden;
+}
+
+#navbar-services-menu {
+    width: 275px;
+}
+
+.navbar-dropdown-menu ul {
+    padding: 0 0 20px 0;
 }
 
 .navbar-dropdown-menu li {
     display: block;
     text-align: left;
-    padding: 10px 20px;
+    padding: 5px 10px 5px 20px;
+}
+
+.navbar-dropdown-item {
+    font-size: 1.125rem;
 }
 
 .navbar-dropdown-open {
@@ -224,49 +341,183 @@ ul {
 /* active header navigation links */
 
 .active-link {
-    text-transform: uppercase;
-    color: #8b817f;
+    color: #008f18 !important;
+}
+
+/* -------- main page body -------- */
+
+main {
+    margin-top: 207px;
+}
+
+@media(hover: none) {
+    main a {
+        color: #fff !important;
+    }
+
+    main a.btn, main button {
+        color: #fff !important;
+    }
+}
+
+.anchor-section {
+    scroll-margin-top: 207px;
+}
+
+/* page banners */
+
+.banner-container, .mini-banner {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: center; */
+
+    position: relative;
+}
+
+.opaque-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Jumbotron */
+
+.jumbotron {
+    background-color: transparent;
+    margin: 0;
+}
+
+.jumbotron h1 {
+    margin-bottom: 30px;
+}
+
+.jumbotron h1, .jumbotron h2, .jumbotron h3 {
+    font-weight: bold;
+}
+
+/* accordions */
+
+.accordion a:focus {
+    text-decoration: none !important;
 }
 
 /* ------------ footer ------------ */
 
 footer {
-    font-family: 'Roboto Condensed', sans-serif;
+    /* font-family: 'Roboto Condensed', sans-serif; */
+    font-family: 'consolas', 'Source Code Pro', sans-serif;
     color: #fff;
-    background-color: #000;
-    height: auto;
 }
 
-.social-networks {
+footer hr {
+    /* background-color: #4d4d4d; */
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
+}
+
+.footer-contact-social-links {
     color: #fff;
-    line-height: 3rem;
-    font-size: 0.875rem;
+    font-size: 1.5rem;
     list-style-type: none;
-
-    display: flex;
-    justify-content: space-evenly;
+    margin-bottom: 0;
+    text-align: center;
 }
 
-.social-networks i, footer a {
+.footer-contact-social-links .link-btn {
+    font-size: 1.5rem;
+}
+
+.footer-contact-social-links li {
+    padding: 1.5rem 0;
+}
+
+.footer-contact-social-links i, footer a {
     color: #fff;
 }
 
 @media(hover: hover) and (pointer: fine) {
-    .social-networks i:hover {
-        color: #8b817f;
+    .footer-contact-social-links i:hover {
+        color: #008f18;
+    }
+
+    .footer-contact-social-links a:hover {
+        text-decoration: none !important;
     }
 }
 
 #copyright-statement, #company-plug {
     font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.5rem;
     text-align: center;
+}
+
+#copyright-statement {
+    margin-top: 10px;
+    font-size: 1rem;
 }
 
 #company-plug {
     padding: 5px 0 10px 0;
+    font-size: 0.75rem;
 }
+
+/* ---------- contact forms ---------- */
+
+.cf-hidden {
+    display: none;
+}
+
+.g-recaptcha {
+    transform-origin: 0 0;
+}
+
+.g-recaptcha div {
+    margin: 0 auto;
+}
+
+
+
+            /************************************/
+            /*                                  */
+            /* --------- Popup modals --------- */
+            /*                                  */
+            /************************************/
+
+/* footer contact links */
+
+.footer-contact-link-modal {
+    height: 90vh;
+}
+
+.footer-contact-link-modal .modal-content {
+    height: 100%;
+    background: linear-gradient(180deg, #0e1011, #2c3136);
+    color: #fff;
+}
+
+.footer-contact-link-modal .close {
+    color: #fff;
+    font-size: 3rem;
+}
+
+.footer-contact-link-modal .modal-body {
+    overflow-y: auto;
+}
+
+.footer-contact-link-modal a {
+    color: #fff;
+    text-decoration: none !important;
+}
+
+#modal-phone-no {
+    font-size: 1.5rem;
+}
+
+
 
             /************************************/
             /*                                  */
@@ -276,9 +527,29 @@ footer {
 
 /* general styles */
 
-main {
-height: 100vh;
-overflow: hidden;
+#landing-banner .banner-els-container {
+    position: relative;
+}
+
+#landing-banner-img img {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    justify-self: center;
+}
+
+#landing-cta-btns {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+}
+
+#landing-banner .btn-cta {
+    font-weight: 400;
+}
+
+.about-container {
+    height: 100vh;
 }
 
 
@@ -291,19 +562,33 @@ overflow: hidden;
 
 /* ---------- for responsive design ----------- */
 
-/* for larger screens, wider than 820 pixels */
+/* for large screens, up to 1200 pixels wide (matches Bootstrap's lg - xl breakpoint) */
 
-@media screen and (min-width: 820px) {
+@media screen and (max-width: 1200px) {
 
-    /* header navigation menu */
-    #main-menu-btn {
-        display: none;
+    /* general bootstrap override */
+
+    .container {
+        max-width: none;
+        margin: auto;
+        padding: 0 30px;
     }
 }
 
-/* for medium-sized screens, up to 820 pixels wide */
+/* for medium-large-sized screens, up to 992 pixels wide (matches Bootstrap's md - lg breakpoint) */
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 992px) {
+
+    /* contact page */
+
+    #contact-page-form {
+        max-width: 100%;
+    }
+}
+
+/* for medium-sized screens, up to 768 pixels wide (matches Bootstrap's sm - md breakpoint) */
+
+@media screen and (max-width: 768px) {
 
     /* main header */
 
@@ -311,7 +596,19 @@ overflow: hidden;
         justify-content: space-between;
     }
 
+    .logo-txt-std {
+        font-size: 2.65rem;
+    }
+
+    .logo-txt-solo {
+        font-size: 3.5rem;
+    }
+
     /* header navigation menu */
+
+    #main-menu-btn {
+        display: flex;
+    }
     
     .main-menu-responsive {
         left: auto;
@@ -319,14 +616,20 @@ overflow: hidden;
         width: 100%;
         height: 0;
         border-radius: 0 0 5px 5px;
-        background-color: rgba(0, 0, 0, 0.9);
         overflow: hidden;
         transition: all 0.25s;
     }
 
+    .main-menu-responsive ul {
+        padding: 5px 0 20px;
+        margin-bottom: 0;
+    }
+
     .main-menu-responsive li {
+        text-align: left;
         display: block;
-        padding: 10px;
+        margin-left: 50px;
+        padding: 5px 0;
     }
 
     .main-menu-open {
@@ -335,9 +638,92 @@ overflow: hidden;
 
     /* navigation dropdown menus */
 
+    .navbar-dropdown-btn {
+        padding: 0;
+    }
+
     .navbar-dropdown-menu {
         position: relative;
-        top: 10px;
-        width: 100%;
+        top: 0;
+        width: 100% !important;
+    }
+
+    .navbar-dropdown-menu ul {
+        padding: 0;
+    }
+
+    .navbar-dropdown-menu li {
+        margin-left: 20px;
+        padding: 2.5px 0;
+    }
+
+    /* main page body */
+
+    main {
+        margin-top: 140px;
+    }
+    
+    .anchor-section {
+        scroll-margin-top: 140px;
+    }
+}
+
+/* for smaller-sized screens, up to 576 pixels wide (matches Bootstrap's xs - sm breakpoint) */
+
+@media screen and (max-width: 576px) {
+
+    /* main header */
+
+    .logo-txt-solo {
+        font-size: 2.75rem;
+    }
+
+    .logo-txt-br {
+        display: block;
+    }
+}
+
+/* for extra-small screens, up to 460 pixels wide */
+
+@media screen and (max-width: 460px) {
+
+    /* main header */
+
+    #header-logo img {
+        margin: 15px 0;
+    }
+
+    .logo-size {
+        height: 110px;
+        width: 110px;
+    }
+    
+    .logo-txt-std {
+        font-size: 2.5rem;
+    }
+
+    .logo-txt-solo {
+        font-size: 2rem;
+    }
+
+    /* landing page */
+
+    #landing-cta-btns {
+        bottom: 0;
+    }
+}
+
+/* for the smallest screens, up to 359 pixels wide */
+
+@media screen and (max-width: 359px) {
+
+    /* main header */
+
+    .logo-txt-solo {
+        font-size: 2.5rem;
+    }
+
+    .logo-txt-br-solo {
+        display: block;
     }
 }

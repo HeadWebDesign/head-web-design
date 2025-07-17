@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Head Web Design, freelance web design and software development for small businesses, based in Malin Head, Co Donegal. Ireland">
-    <meta name="keywords" content="freelance web design, freelance web developer, Head Web Design, Malin Head web design, Inishowen web design, Co Donegal web design, web design for small businesses, small business websites, Irish web designer, affordable web design, custom web design, ecommerce solutions, responsive web design, mobile-friendly websites, website maintenance, SEO services, branding and web design, user-friendly websites, website redesign, bespoke web design, local business web design, startup web design, online presence for small businesses, creative web solutions, Irish business websites, Donegal web developer, digital marketing services, Head Web Design Malin Head, professional web design, Malin Head freelance designer, Head Web Design Inishowen, Head Web Design Donegal, website optimization, small business online marketing, web design portfolio, modern web design, custom web solutions, website content creation, branding for small businesses, Co Donegal freelance designer, user experience design, Malin Head business websites, graphic design for web, Ireland-based web designer, custom ecommerce websites, search engine optimization, web design Ireland, small business branding, Malin Head Ireland web design, professional freelance web services, creative digital solutions, web design consultancy, freelance web designer, web design services, web design solutions, website development, SEO-friendly web design, creative web design, ecommerce web design, web design for startups, web design for entrepreneurs, user-friendly web design, mobile first web design, custom websites for small businesses, small business support, small business digital solutions, web design for local shops, local business website design, custom website solutions, small business online presence, website updates and support, startup website packages, web solutions for local businesses, local SEO services, website creation, website repair services, UX/UI design">
+    <meta name="keywords" content="freelance web design, freelance web developer, Head Web Design, Malin Head web design, Inishowen web design, Co Donegal web design, web design for small businesses, small business websites, Irish web designer, affordable web design, custom web design, ecommerce solutions, responsive web design, mobile-friendly websites, website maintenance, SEO services, branding and web design, user-friendly websites, website redesign, bespoke web design, local business web design, startup web design, online presence for small businesses, creative web solutions, Irish business websites, Donegal web developer, digital marketing services, Head Web Design Malin Head, professional web design, Malin Head freelance designer, Head Web Design Malin Head, Head Web Design Inishowen, Head Web Design Donegal, Head Web Design Ireland, website optimization, small business online marketing, web design portfolio, modern web design, custom web solutions, website content creation, branding for small businesses, Co Donegal freelance designer, brochure websites, Malin Head brochure websites, Inishowen brochure websites, Donegal brochure websites, Ireland brochure websites, Irish brochure websites, business websites, Malin Head business websites, Inishowen business websites, Donegal business websites, graphic design for web, Ireland-based web designer, custom ecommerce websites, search engine optimization, web design Ireland, web design Donegal, web design Inishowen, web design Malin Head, small business branding, Malin Head Ireland web design, professional freelance web services, creative digital solutions, web design consultancy, freelance web designer, web design services, web design solutions, website development, website development Malin Head, website development Inishowen, website development Donegal, website development Ireland, SEO-friendly web design, creative web design, ecommerce web design, web design for startups, web design for entrepreneurs, user-friendly web design, mobile first web design, custom websites for small businesses, small business support, small business digital solutions, web design for local shops, local business website design, custom website solutions, small business online presence, website updates and support, startup website packages, web solutions for local businesses, local SEO services, website creation, website repair services, user experience design, UX design, UX/UI design">
 
     <!-- Bootstrap css link -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,15 +13,27 @@
     <!-- Custom css -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
     <title>Head Web Design</title>
+
+    <!-- EmailJS CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Google reCAPTCHA API -->
+    <script type="text/javascript"  src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 </head>
 <body>
     
     <header id="main-header">
         
-        <div id="header-logo" class="py-1">
+        <div id="header-logo">
+            <a href="index.html" class="header-img-link" tabindex="-1" aria-hidden="true">
+                <img src="assets/images/HeadSoloBright2.jpg" alt="Head Web Design 'head' logo" class="shrink-hide">
+            </a>
             <a href="index.html">
-                <img src="assets/images/HeadSoloBright2.jpg" alt="Head Web Design 'head' logo">
-                <p class="mb-0">Head Web Design</p>
+                <p class="mb-0 logo-txt-solo">
+                    Head
+                    <br class="logo-txt-br-solo">
+                    Web Design
+                </p>
             </a>
         </div>
 
@@ -34,7 +46,6 @@
                     <span></span>
                     <span></span>
                 </span>
-                <!-- <span class="menu-btn-text">Menu</span> -->
             </button>
 
             <!-- main menu links -->
@@ -100,25 +111,75 @@
 
     <main>
 
+        <div id="landing-banner" class="container-fluid banner-container px-0 pb-3">
+            <div class="row-no-gutters">
+                <div class="col-12 banner-els-container px-0">
+                    <section id="landing-banner-img">
+                        <img src="assets/images/HeadWebDesignLogo7thDraftAddressTaglineNoName.jpg" alt="Head Web Design hero image">
+                    </section>
+                    <section id="landing-cta-btns" class="banner-cta-btns text-center w-100">
+                        <a href="contact.html" class="btn btn-lg btn-cta btn-wide-fit btn-darkgrey btn-effect my-1">Book a FREE Consultation</a>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- About section -->
+        <div class="container-wrapper">
+            <div class="container content-container about-container">
+                <section id="landing-info" class="about-section my-3">
+                    <div class="row">
+                        <div class="col-12 section-header">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 section-content">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 section-footer section-links py-3">
+                            <div class="row">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
     </main>
 
     <footer>
-        
-        <!-- footer links to social media accounts, etc. -->
-        <ul class="social-networks">
-            <li>
-                <a href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="Watch our YouTube videos (opens in a new tab)"><i class="fab fa-youtube"></i></a>
-            </li>
-            <li>
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Visit our facebook page (opens in a new tab)"><i class="fab fa-facebook"></i></a>
-            </li>
-            <li>
-                <a href="https://twitter.com/" target="_blank" rel="noopener" aria-label="Visit our twitter or x page (opens in a new tab)"><i class="fa-brands fa-x-twitter"></i>&#47;<i class="fab fa-twitter"></i></a>
-            </li>
-            <li>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Visit our instagram page (opens in a new tab)"><i class="fab fa-instagram"></i></a>
-            </li>
-        </ul>
+
+        <!-- main footer content -->
+        <div class="container-wrapper">
+            <div class="container content-container footer-container">
+                <!-- contact info & social media links -->
+                <section id="footer-links" class="my-3">
+                    <div class="row">
+                        <div class="col section-content">
+                            <!-- footer links to social media accounts, etc. -->
+                            <ul class="footer-contact-social-links d-flex justify-content-around">
+                                <li class="footer-contact-link">
+                                    <button type="button" class="btn link-btn p-0" data-toggle="modal" data-target="#phone-info-modal" aria-label="open modal for phone details and call link">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </button>
+                                </li>
+                                <li class="footer-contact-link">
+                                    <button type="button" class="btn link-btn p-0" data-toggle="modal" data-target="#email-info-modal" aria-label="open modal for email address and email form">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>
+                                </li>
+                                <li class="footer-social-link">
+                                    <a href="https://www.facebook.com/farrenbar1825/" target="_blank" rel="noopener" aria-label="Visit our facebook page, (opens in a new tab)"><i class="fab fa-facebook"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <hr>
         <!-- copyright statement -->
         <div id="copyright-statement">
             &copy; <span class="copyright-year"></span> Head Web Design: all rights reserved
@@ -130,6 +191,113 @@
 
     </footer>
 
+    <!-- Popup modals for phone and email links in footer -->
+
+    <div id="phone-info-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="phone-info-title" aria-describedby="phone-info-description" aria-hidden="true">
+        <div class="modal-dialog footer-contact-link-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h4 id="phone-info-title" class="modal-title p-3">Call Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex justify-content-center align-items-center">
+                    <div class="modal-body-content text-center">
+                        <p id="phone-info-description" class="aria-modal-description sr-only">
+                            Call us on the number below, Monday to Friday, between 12 noon and 8 p m.
+                        </p>
+                        <p id="modal-phone-no">
+                            <a href="tel:00353868412210" aria-label="call Head Web Design on 00353868412210">
+                                <i class="fa-solid fa-phone"></i>
+                                <span> &#43;353 86 841 2210</span>
+                            </a>
+                        </p>
+                        <p class="open-hours-info">
+                            <i class="fa-regular fa-clock"></i>
+                            <span> Monday to Friday, 12 noon to 8p.m.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="email-info-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="email-info-title" aria-describedby="email-info-description" aria-hidden="true">
+        <div class="modal-dialog footer-contact-link-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h4 id="email-info-title" class="modal-title p-3">Contact Us</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body pt-0">
+                    <div class="modal-body-content text-center pb-0">
+                        <p id="email-info-description" class="aria-modal-description sr-only">
+                            Fill out the form below, or use the link to send a direct email to: info at headwebdesign dot ie
+                        </p>
+                        <p id="email-modal-description" class="text-left ml-3">
+                            Fill out the form below, or send a direct email to: 
+                            <a href="mailto:info@headwebdesign.ie" aria-label="email Head Web Design">info&#64;headwebdesign.ie</a>
+                        </p>
+                        <p aria-hidden="true">Fields marked with &#42; are required.</p>
+                        <div id="modal-email-form">
+                            <form id="modal-contact-form" class="contact-form">
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="modal-cf-first-name" class="sr-only">First Name (required)</label>
+                                        <input type="text" id="modal-cf-first-name" name="firstname" class="form-control" placeholder="First Name&#42;" required>
+                                    </div>
+                                    <div class="form-group col-sm-6">
+                                        <label for="modal-cf-last-name" class="sr-only">Surname (required)</label>
+                                        <input type="text" id="modal-cf-last-name" name="surname" class="form-control" placeholder="Surname&#42;" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modal-cf-email-address" class="sr-only">Email Address (required)</label>
+                                    <input type="email" id="modal-cf-email-address" name="email" class="form-control" placeholder="Email Address&#42;" aria-describedby="modal-cf-email-help-text" required>
+                                    <small id="modal-cf-email-help-text" class="form-text">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modal-cf-phone-no" class="sr-only">Phone Number (optional)</label>
+                                    <input type="text" id="modal-cf-phone-no" name="phone" class="form-control" placeholder="Phone Number" aria-describedby="modal-cf-phone-help-text">
+                                    <small id="modal-cf-phone-help-text" class="form-text">We'll never share your phone number with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="modal-cf-message">Your Message or Project Idea (required)</label>
+                                    <textarea rows="5" id="modal-cf-message" name="message" class="form-control" placeholder="Enter Your Message or Project Idea&#42;" required></textarea>
+                                </div>
+                                <div class="cf-success-message cf-hidden text-center" aria-hidden="true">
+                                    <p>Your message was sent successfully&#33;</p>
+                                    <p>
+                                        Thank you for reaching out. <br>
+                                        We'll be in touch as soon as possible.
+                                    </p>
+                                </div>
+                                <div class="cf-failure-message cf-hidden text-center" aria-hidden="true">
+                                    <p>
+                                        Unfortunately, your message was not sent <br>
+                                        due to a system error.
+                                    </p>
+                                    <p>
+                                        Instead, please send a direct email to <br>
+                                        <a href="info@headwebdesign.ie" class="failure-email-link" aria-label="email Head Web Design">info&#64;headwebdesign.ie</a> <br>
+                                        or refresh the page to try again.
+                                    </p>
+                                </div>
+                                <div class="col text-center p-0 contact-btn-wrapper">
+                                    <div class="g-recaptcha" data-sitekey="6Lfo2mErAAAAAMeaGh7JUjlJuMTFYmvpd24FyKcV"></div>
+                                    <br>
+                                    <button type="submit" class="btn btn-cta btn-darkgrey btn-effect">Get in Touch</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
    
     <!-- Bootstrap scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

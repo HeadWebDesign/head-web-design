@@ -2,6 +2,43 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // --------------------- EmailJS
+
+    // ------------ Initialise EmailJs service
+
+    (function(){
+        emailjs.init({
+          publicKey: "bDpJggHvGJ6gMBrgc",
+        });
+     })();
+
+    //  ------------------ Contact forms
+
+    /* Get contact form(s) from the page and if found, pass to handler
+       function */
+
+    const contactForms = document.querySelectorAll('.contact-form');
+
+    if (contactForms.length > 0) {
+        for (let form of contactForms) {
+            handleContactFormEmailJS(form);
+        }
+    }
+
+    /* Get Google reCAPTCHA(s) from the page and if found, pass to
+       handler function for resizing */
+    
+    const captchas = document.querySelectorAll('.g-recaptcha');
+
+    if (captchas.length > 0) {
+        for (let captcha of captchas) {
+            /* have to use jquery '.on' instead of 'addEventListener'
+               for Bootstrap 4.3 modal events compatability */
+            $('#email-info-modal').on('shown.bs.modal', () => resizeCaptcha(captcha));
+            window.addEventListener('resize', () => resizeCaptcha(captcha));
+        }
+    }
+
     // -------------------- Main menu
 
     /* Get main menu from the DOM and pass to handler functions if
@@ -30,6 +67,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    /* Get all navigation dropdown list link from the page and, if found, get any
+       sections from the page that they might link to. If sections found, pass both
+       lists to handler function along with appropriate 'active' class for styling */
+
+    const navbarDropdownLinks = document.querySelectorAll('.navbar-dropdown-item');
+    const activeClass = 'active-link'
+
+    if (navbarDropdownLinks.length > 0) {
+        const navbarLinkedEls = document.querySelectorAll('.navbar-linked-section');
+        if (navbarLinkedEls.length > 0) {
+            handleActiveLinkStyleOnScroll(navbarDropdownLinks, navbarLinkedEls, activeClass);
+        }
+    }
+
     // ---------------------- Footer
 
     // Set current year in copyright statement if found
@@ -42,6 +93,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // ---------------------- Modals
+
+    const modals = document.querySelectorAll('.modal');
+
+    if (modals.length > 0) {
+        for (let modal of modals) {
+            trapKeyNavFocus(modal);
+        }
+    }
+
+    // ------------------- Landing Page
+
+    /* Get landing page banner image and, if found, pass to page header logo
+       handler function */
+    
+    const landingBannerImgWrap = document.querySelector('#landing-banner-img');
+
+    if (landingBannerImgWrap) {
+        handleHeaderLogoDisplay(landingBannerImgWrap);
+    }
+
+    // ---------------- Bootstrap Accordions
+
+    /* Get all Bootstrap 'accordion' components from the page and if found,
+       pass each one to handler function */
+
+    // const accordions = document.querySelectorAll('.accordion');
+
+    // if (accordions.length > 0) {
+    //     for (let accordion of accordions) {
+    //         handleBootstrapAccordionPageBreach(accordion);
+    //     }
+    // }
+    
 });
 
 // -------------------- Handler functions
@@ -65,12 +150,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const menuOpenClass = 'main-menu-open';
     const links = dropdown.querySelectorAll('.main-menu-item');
 
-    if (window.innerWidth <= 820) {
+    if (window.innerWidth <= 768) {
         handlePopupAria(button, menuOpenClass);
     }
        
     window.addEventListener('resize', () => {
-        if (window.innerWidth >= 820) {
+        if (window.innerWidth >= 768) {
             button.setAttribute('aria-expanded', false);
             dropdown.removeAttribute('aria-hidden');
             for (let link of links) {
@@ -104,15 +189,31 @@ function handleMainMenuDropdown(menu) {
 // ----------------- Navigation dropdown functions
 
 /**
- * Get passed-in dropdown's toggle button and set it's 'active' class
- * name based on dropdown it pertains to.
+ * Get passed-in dropdown's toggle button and set button 'active'
+ * class name. Set dropdown's menu 'open' class name and get menu
+ * links.
  * 
  * Pass toggle button and class name(s) to handlePopup and
  * handleDropdownAria functions.
  * 
  * Add event listener to close dropdowns and set appropriate aria 
- * properties if screen is resized (e.g. mobile device flipped between
- * portrait & landscape mode). 
+ * properties if screen is resized (e.g. mobile device flipped
+ * between portrait & landscape mode).
+ * 
+ * Add 'click' event listener to each menu link, passing event
+ * handler function as callback to throttleEvent function with
+ * 'interval' parameter of 300ms, thus limiting click events to
+ * max 3 per second.
+ * 
+ * On click, after 300ms: close dropdown by passing it to
+ * handleCloseNavDropdown function along with button 'active'
+ * class; on smaller screens, (width <= 768px), main-menu will be
+ * in dropdown mode, so get it along with its toggle button and
+ * dropdown menu; set main menu 'open' class and pass it and menu
+ * to handleCloseNestedDropdown function, remove 'open' class from
+ * main menu dropdown and 'active' class from main menu toggle
+ * button, thus closing entire main menu; pass main menu's toggle
+ * button and 'open' class to handlePopupAria function.
  * 
  * @param {HTMLElement} dropdown - Element containing or consisting of navigation dropdown to be handled.
  */
@@ -120,6 +221,7 @@ function handleMainMenuDropdown(menu) {
     const dropdownToggleButton = dropdown.querySelector('.menu-toggle-btn');
     const buttonActiveClass = 'menu-toggle-btn-active';
     const dropdownOpenClass = 'navbar-dropdown-open';
+    const menuLinks = dropdown.querySelectorAll('.navbar-dropdown-item');
 
     handleDropdownAria(dropdownToggleButton, dropdownOpenClass);
     handlePopup(dropdownToggleButton, buttonActiveClass, dropdownOpenClass);
@@ -131,17 +233,39 @@ function handleMainMenuDropdown(menu) {
         handleDropdownAria(dropdownToggleButton, dropdownOpenClass);
         dropdownToggleButton.classList.remove(buttonActiveClass);
     });
+
+    if (menuLinks.length > 0) {
+        for (let link of menuLinks) {
+            link.addEventListener('click', throttleEvent(e => {
+                // Only target link anchor element
+                let targetLink = e.target.closest('a');
+                if (!targetLink) return;
+
+                setTimeout (() => {
+                    if (window.innerWidth <= 768) {
+                        const mainMenu = document.querySelector('#main-menu');
+                        const mainMenuButton = mainMenu.querySelector('#main-menu-btn');
+                        const mainMenuDropdown = mainMenu.querySelector('#main-menu-items');
+                        const mainMenuOpenClass = 'main-menu-open';
+
+                        handleCloseNestedDropdowns(mainMenu, buttonActiveClass);
+                        mainMenuDropdown.classList.remove(mainMenuOpenClass);
+                        mainMenuButton.classList.remove(buttonActiveClass);
+                        handlePopupAria(mainMenuButton, mainMenuOpenClass);
+                    } else {
+                        handleCloseNavdDropdown(dropdown, buttonActiveClass);
+                    }
+                }, 300);
+               // Pass 300ms time interval to throttleEvent function
+            }, 300));
+        }
+    }
 }
 
 /**
  * Get passed-in parent element's nested navigation dropdown menus and
- * get each one's toggle button and associated menu list. Set 'active'
- * class name for menu lists.
- * 
- * Remove 'active' class name from menu lists, effectively closing them.
- * Pass toggle buttons and their associated menus' 'active' class name to
- * handleDropdownAria function.
- * Remove passed-in 'active' class name from toggler buttons.
+ * pass each one, along with passed-in toggle button 'active' class to
+ * handler function.
  * 
  * @param {HTMLElement} parentMenu - Element containing navigation dropdowns to be handled.
  * @param {string} togglerActiveClass - Class name denoting toggle button active (popup visible).
@@ -149,14 +273,31 @@ function handleMainMenuDropdown(menu) {
  function handleCloseNestedDropdowns(parentMenu, togglerActiveClass) {
     const dropdowns = parentMenu.querySelectorAll('.navbar-dropdown-menu-container');
     for (let dropdown of dropdowns) {
-        const ddToggleBtn = dropdown.querySelector('.menu-toggle-btn');
-        const ddId = ddToggleBtn.getAttribute('aria-controls');
-        const ddMenu = dropdown.querySelector(`#${ddId}`);
-        const ddOpenClass = 'navbar-dropdown-open';
-        ddMenu.classList.remove(ddOpenClass);
-        handleDropdownAria(ddToggleBtn, ddOpenClass);
-        ddToggleBtn.classList.remove(togglerActiveClass);
+        handleCloseNavdDropdown(dropdown, togglerActiveClass);
     }
+}
+
+/**
+ * Get passed-in navigation dropdown menu's toggle button and associated
+ * menu list. Set 'active' class name for menu list.
+ * 
+ * Remove 'active' class name from menu list, effectively closing it.
+ * Pass toggle button and its associated menu's 'active' class name to
+ * handleDropdownAria function.
+ * 
+ * Remove passed-in 'active' class name from toggler button.
+ * 
+ * @param {HTMLElement} dropdown - Element containing or consisting of navigation dropdown to be handled.
+ * @param {string} togglerActiveClass - Class name denoting toggle button active (popup visible).
+ */
+ function handleCloseNavdDropdown(dropdown, togglerActiveClass) {
+    const ddToggleBtn = dropdown.querySelector('.menu-toggle-btn');
+    const ddId = ddToggleBtn.getAttribute('aria-controls');
+    const ddMenu = dropdown.querySelector(`#${ddId}`);
+    const ddOpenClass = 'navbar-dropdown-open';
+    ddMenu.classList.remove(ddOpenClass);
+    handleDropdownAria(ddToggleBtn, ddOpenClass);
+    ddToggleBtn.classList.remove(togglerActiveClass);
 }
 
 // --------------- Navigation dropdown functions end
@@ -319,7 +460,7 @@ function handlePopup(toggleButton, togglerActiveClass, popupOpenClass) {
            external event handler if main menu is in dropdown mode - 
            will be handled along with main menu. Exempt news & events
            page articles from closing on external events in all cases. */
-        if (window.innerWidth <= 820) {
+        if (window.innerWidth <= 768) {
             if (!(toggleButton.classList.contains('navbar-dropdown-btn') || toggleButton.classList.contains('article-toggle-btn'))) {
                 handlePopupExternalEvent(toggleButton, togglerActiveClass, popupOpenClass);
             }
@@ -346,7 +487,7 @@ function handlePopup(toggleButton, togglerActiveClass, popupOpenClass) {
  * dropdown menu, to handleDropdownAria function; remove 'active' 
  * class from toggle button.
  * 
- * If main menu is in dropdown mode, (screen <= 820px), navigation
+ * If main menu is in dropdown mode, (screen <= 768px), navigation
  * dropdown menus won't have been passed in here, (see handlePopup
  * function), so they are dealt with along with the main menu (i.e.
  * passed to handleCloseNestedDropdowns function).
@@ -419,7 +560,346 @@ function handlePopupExternalEvent(toggleButton, togglerActiveClass, popupOpenCla
 
 // --------------- Popups & dropdowns functions end
 
+// -------------------- Landing page handlers
+
+/**
+ * Get header logo conatiner element from DOM. Get logo image anchor
+ * element, logo image, logo text and logo text line break.
+ * 
+ * Add 'scroll' event listener to window. On scroll, get passed-in
+ * 'control' element's top and height properties. Calculate point at
+ * which logo display is to change, based on 'control' element's
+ * scrollY position. Apply appropriate display/hide classes and aria
+ * attributes to logo elements as scrollY reaches/passes change point.
+ * 
+ * @param {HTMLElement} controlElement - Element on page whose scroll position determines how header logo is displayed.
+ */
+function handleHeaderLogoDisplay(controlElement) {
+    const headerLogo = document.querySelector('#header-logo');
+    const logoImgLink = headerLogo.querySelector('.header-img-link');
+    const logoImg = logoImgLink.querySelector('img');
+    const logoTxt = headerLogo.querySelector('p');
+    const logoBreak = logoTxt.querySelector('br');
+    let changePoint;
+
+    window.addEventListener('scroll', () => {
+        /* Get control element's scroll position relative to window as
+           opposed to parent, which 'offsetTop' does */
+        const sectionTop = controlElement.getBoundingClientRect().top;
+        const sectionHeight = controlElement.getBoundingClientRect().height;
+
+        if (controlElement.id === 'landing-banner-img') {
+            /* logo on banner image takes up 63.33% of image height,
+               so point at which header logo image is displayed set 
+               to point at which banner image almost hidden */
+            changePoint = (sectionHeight * (63.33 / 100)) - (sectionHeight / 10);
+        } else changePoint = sectionTop - (sectionHeight / 3);
+
+        if (scrollY >= changePoint) {
+            logoImgLink.removeAttribute('tabindex');
+            logoImgLink.removeAttribute('aria-hidden');
+            logoImg.classList.add('logo-size');
+            logoImg.classList.remove('shrink-hide');
+            logoTxt.classList.add('logo-txt-std');
+            logoTxt.classList.remove('logo-txt-solo');
+            logoBreak.classList.add('logo-txt-br');
+            logoBreak.classList.remove('logo-txt-br-solo');
+        } else {
+            logoBreak.classList.add('logo-txt-br-solo');
+            logoBreak.classList.remove('logo-txt-br');
+            logoTxt.classList.add('logo-txt-solo');
+            logoTxt.classList.remove('logo-txt-std');
+            logoImg.classList.add('shrink-hide');
+            logoImg.classList.remove('logo-size');
+            logoImgLink.setAttribute('tabindex', -1);
+            logoImgLink.setAttribute('aria-hidden', true);
+        }
+    });
+}
+
+// ----------------- Landing page handlers end
+
+// -------------- Bootstrap components custom handlers
+
+// ------------------------- Accordions
+
+// /**
+//  * Get passed-in Bootstrap 'accordion' component's child 'card'
+//  * components, each of which in turn contains a Bootstrap 'collapse'
+//  * component in the card body and its associated control link in the
+//  * card header.
+//  * 
+//  * Get each card's empty, block-level anchor tag which contains its
+//  * CSS 'scroll-margin-top' property and hence controls its position
+//  * below the page's fixed header.
+//  * 
+//  * Get each card's header and 'collapse' component's controlling
+//  * link.
+//  * 
+//  * Add 'click' event listener to each controlling link. (Used
+//  * instead of Bootstrap 'show.bs.collapse' or 'hide.bs.collapse'
+//  * events in case they don't fire in time.)
+//  * 
+//  * On click, wait 0.5 seconds (setTimeout()) for 'collapse' component
+//  * to expand. If the card header has passed the bottom of the page's
+//  * fixed header, set the window target to the card's empty anchor tag
+//  * so that the card header scrolls back to the bottom of the page
+//  * header.
+//  * 
+//  * @param {HTMLElement} accordion - Bootstrap 'accordion' component element.
+//  */
+// function handleBootstrapAccordionPageBreach(accordion) {
+//     const cards = accordion.querySelectorAll('.card');
+
+//     if (cards.length > 0) {
+//         for (let card of cards) {
+//             const anchor = card.querySelector('.card-anchor');
+//             const header = card.querySelector('.card-header');
+//             const collapseLink = header.querySelector('.faq-accordion-link');
+
+//             collapseLink.addEventListener('click', () => {
+//                 setTimeout(() => {
+//                     // On smaller screens (width <= 768px), page header is 140px high
+//                     if (window.innerWidth <= 768) {
+//                         if (header.getBoundingClientRect().top < 140) {
+//                             window.location.href = `#${anchor.id}`;                                
+//                         }
+//                     // On larger screens, page header is 207px high
+//                     } else {
+//                         if (header.getBoundingClientRect().top < 207) {
+//                             window.location.href = `#${anchor.id}`;                                
+//                         }
+//                     }
+//                 }, 500);
+//             });
+//         }
+//     }
+// }
+
+// ----------- Bootstrap components custom handlers end
+
+// ------------------- Contact Forms & EmailJS
+
+/**
+ * Get passed-in form element's child 'success' and 'failure' message
+ * div elements and submit button's container div element. Get form
+ * element's parent 'modal' element, if any.
+ * 
+ * Add 'submit' event listener to passed-in form element.
+ * 
+ * On submit, set template parameters object to be passed to EmailJS
+ * send() method with keys matching EmailJS template variable names
+ * and values populated from corresponding field in form element.
+ * 
+ * Call send() method to submit form details to EmailJS, passing in
+ * EmailJS service ID, EmailJS template ID and template parameters
+ * object, then await response. On 'success' response, display
+ * 'success' message and hide submit button. On 'error' response,
+ * display 'failure' message and hide submit button. Change each
+ * element's 'aria-hidden' attribute accordingly and disable any
+ * focusable elements that are hidden. If parent 'modal' exists,
+ * pass to trapKeyNavFocus() function to update list of focusable
+ * elements.
+ * 
+ * @param {HTMLElement} contactForm - Contact form from 'Contact Us' page or footer email modal: form element.
+ */
+function handleContactFormEmailJS(contactForm) {
+    const successMsg = contactForm.querySelector('.cf-success-message');
+    const failureMsg = contactForm.querySelector('.cf-failure-message');
+    const submitBtnSection = contactForm.querySelector('.contact-btn-wrapper');
+    const modal = contactForm.closest('.modal');
+
+    contactForm.addEventListener('submit', (e) => {
+        // Prevent page from refreshing on form submit
+        e.preventDefault();
+        // get Google reCAPTCHA response token
+        let captchaToken = grecaptcha.enterprise.getResponse();
+        // Set parameters to be sent to EmailJS template
+        // **Key values MUST match variable names in EmailJS template
+        let templateParams = {
+            'first_name': contactForm.firstname.value,
+            'last_name': contactForm.surname.value,
+            'email_addr': contactForm.email.value,
+            'phone_no': contactForm.phone.value,
+            'message': contactForm.message.value,
+            "g-recaptcha-response": captchaToken,
+        }
+        // Call EmailJS send() method to submit form
+        emailjs.send('gmail_HWD', 'contact-form', templateParams).then(
+            (response) => {
+                console.log('SUCCESS!', response.status, response.text);
+                submitBtnSection.classList.add('shrink-hide');
+                submitBtnSection.setAttribute('aria-hidden', true);
+                submitBtnSection.querySelector('button').setAttribute('disabled', true); // hidden submit button
+                submitBtnSection.querySelector('textarea').setAttribute('disabled', true); // hidden Google reCAPTCHA
+                contactForm.querySelector('.failure-email-link').setAttribute('disabled', true); // hidden link in failure message
+                successMsg.classList.remove('cf-hidden');
+                successMsg.setAttribute('aria-hidden', false);
+                // resubmit modal, if any, to trapKeyNavFocus() function
+                if (modal) trapKeyNavFocus(modal);
+            },
+            (error) => {
+                console.log('FAILED...', error);
+                submitBtnSection.classList.add('shrink-hide');
+                submitBtnSection.setAttribute('aria-hidden', true);
+                submitBtnSection.querySelector('button').setAttribute('disabled', true); // hidden submit button
+                submitBtnSection.querySelector('textarea').setAttribute('disabled', true); // hidden Google reCAPTCHA
+                failureMsg.classList.remove('cf-hidden');
+                failureMsg.setAttribute('aria-hidden', false);
+                // resubmit modal, if any, to trapKeyNavFocus() function
+                if (modal) trapKeyNavFocus(modal);
+            },
+        );
+    });
+}
+
+/**
+ * Get form to which passed-in Google reCAPTCHA has been applied and
+ * 'div' element (captchaDiv) containing reCAPTCHA iframe, if loaded in.
+ * 
+ * Get width of form and if less than 304px, add 'transform: scale'
+ * style to reCAPTCHA using ratio of captchaDiv to reCAPTCHA's parent
+ * element. If width of form greater than 304px, remove style.
+ * 
+ * @param {HTMLElement} captcha - Div element into which Google reCAPTCHA is dynamically loaded. 
+ */
+function resizeCaptcha(captcha) {
+    const parentForm = captcha.closest('form');
+    const captchaDiv = captcha.children[0];
+
+    if (captchaDiv) {
+        if (parentForm.getBoundingClientRect().width <= 304) {
+        const captchaWidth = captchaDiv.getBoundingClientRect().width;
+        const parentWidth = captcha.parentElement.getBoundingClientRect().width;
+            captcha.style.transform = `scale(${parentWidth / captchaWidth})`;
+        } else {
+            captcha.removeAttribute('style');
+        }
+    }
+}
+
+// ------------- Contact Forms & EmailJS functions end
+
 // ------------------- Miscellaneous functions
+
+// Trapping focus inside elements for keyboard navigation accessibility (e.g. modals)
+
+/**
+ * Get all focusable elements within passed in element and find
+ * the first and last.
+ * 
+ * Listen for 'tab' or 'shift + tab' keypresses to signify keyboard
+ * navigation and if the active element is first in the list on 
+ * 'shift + tab' (backwards navigation), set focus to the first (and
+ * vice-versa).
+ *  
+ * @param {HTMLElement} element - Element (modal, etc) in which focus is to be trapped
+ */
+function trapKeyNavFocus(element) {
+    const focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])');
+    const firstFocusableEl = focusableEls[0];  
+    const lastFocusableEl = focusableEls[focusableEls.length - 1];
+  
+    element.addEventListener('keydown', (e) => {
+        let isTabPressed = (e.key === 'Tab');
+    
+        if (!isTabPressed) { 
+            return; 
+        }
+    
+        if ( e.shiftKey ) {
+        // Shift + Tab
+            if (document.activeElement === firstFocusableEl) {
+                lastFocusableEl.focus();
+                e.preventDefault();
+            }
+        } else {
+        // Tab
+            if (document.activeElement === lastFocusableEl) {
+                firstFocusableEl.focus();
+                e.preventDefault();
+            }
+        }
+    });
+}
+
+// Applying 'active' class to navigation links when associated page section in view
+
+/**
+ * Find link element in passed-in navigation link node list that has
+ * the passed-in 'active' class, if any, and set as default 'active'
+ * link.
+ * 
+ * Add 'scroll' event listener to window. On scroll event:
+ * 
+ * For each section element in passed-in section elements node list,
+ * get its height and its offsetTop property (distance in pixels from
+ * top of element to top of closest offset parent element, in this
+ * case 'body');
+ * 
+ * When scrolled window's Y coordinate + height of fixed page header
+ * is greater than or equal to section element's offsetTop - 1/3 of
+ * section element's height, (i.e. 1/3 of section visible below header),
+ * set section element's id attribute as 'current' section id;
+ * 
+ * Remove 'active' class from each navigation link, check its href
+ * attribute for the 'current' section id (i.e  whether or not it
+ * links to 'current' section) and set as 'active' link if matching.
+ * If no 'current' section id (undefined), set default 'active' link
+ * as 'active link;
+ * 
+ * Add 'active' class to 'active' link. 
+ * 
+ * @param {NodeList} navLinkEls - Navigation link elements that could potentially be subject to style change on scroll event.
+ * @param {NodeList} LinkedSectionEls - Section elements associated with navigation links.
+ * @param {string} activeClass - Class name that applies CSS styles to link elements deemed 'active'.
+ */
+function handleActiveLinkStyleOnScroll(navLinkEls, linkedSectionEls, activeClass) {
+    let defaultActiveLink;
+
+    for (let link of navLinkEls) {
+        if (link.classList.contains(activeClass)) {
+            defaultActiveLink = link;
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        let currentSectionId;
+        let activeLink;
+
+        for (let linkedSection of linkedSectionEls) {
+            const sectionTop = linkedSection.offsetTop;
+            const sectionHeight = linkedSection.clientHeight;
+            // On smaller screens (width <= 768px), page header is 140px high
+            if (window.innerWidth <= 768) {   
+                if ((scrollY + 140) >= (sectionTop - (sectionHeight / 3))) {
+                    currentSectionId = linkedSection.id
+                }
+            // On larger screens, page header is 207px high
+            } else {
+                if ((scrollY + 207) >= (sectionTop - (sectionHeight / 3))) {
+                    currentSectionId = linkedSection.id
+                }
+            }
+            
+        }
+
+        for (let link of navLinkEls) {
+            if (link.classList.contains(activeClass)) {
+                link.classList.remove(activeClass);
+            }
+            
+            if (link.href.includes(`#${currentSectionId}`)) {
+                activeLink = link;
+            } else if (!currentSectionId){
+                activeLink = defaultActiveLink;
+            }
+        }
+
+        activeLink.classList.add(activeClass);
+    });
+
+}
 
 // Throttling
 
