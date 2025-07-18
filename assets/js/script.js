@@ -103,6 +103,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // --------------- Collapsible sections
+
+    const collapseSections = document.querySelectorAll('.collapse-section');
+
+    if (collapseSections.length > 0) {
+        for (let section of collapseSections) {
+            handleCollapseSection(section);
+        }
+    }
+
     // ------------------- Landing Page
 
     /* Get landing page banner image and, if found, pass to page header logo
@@ -156,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
        
     window.addEventListener('resize', () => {
         if (window.innerWidth >= 768) {
-            button.setAttribute('aria-expanded', false);
+            button.setAttribute('aria-expanded', 'false');
             dropdown.removeAttribute('aria-hidden');
             for (let link of links) {
                 link.removeAttribute('tabindex');
@@ -336,14 +346,14 @@ function handlePopupAria (toggleButton, popupOpenClass) {
     const focusElement = popup.querySelector('.first-focus');
     
     if (!popup.classList.contains(popupOpenClass)) {
-        toggleButton.setAttribute('aria-expanded', false);
-        popup.setAttribute('aria-hidden', true);
+        toggleButton.setAttribute('aria-expanded', 'false');
+        popup.setAttribute('aria-hidden', 'true');
         for (let el of elements) {
             el.setAttribute('tabindex', '-1');
         }
     } else {
-        toggleButton.setAttribute('aria-expanded', true);
-        popup.setAttribute('aria-hidden', false);
+        toggleButton.setAttribute('aria-expanded', 'true');
+        popup.setAttribute('aria-hidden', 'false');
         for (let el of elements) {
             el.removeAttribute('tabindex');
         }
@@ -381,14 +391,14 @@ function handleDropdownAria (toggleButton, dropdownOpenClass) {
     const elements = dropdown.querySelectorAll('a, button, iframe, input');
     
     if (!dropdown.classList.contains(dropdownOpenClass)) {
-        toggleButton.setAttribute('aria-expanded', false);
-        dropdown.setAttribute('aria-hidden', true);
+        toggleButton.setAttribute('aria-expanded', 'false');
+        dropdown.setAttribute('aria-hidden', 'true');
         for (let el of elements) {
             el.setAttribute('tabindex', '-1');
         }
     } else {
-        toggleButton.setAttribute('aria-expanded', true);
-        dropdown.setAttribute('aria-hidden', false);
+        toggleButton.setAttribute('aria-expanded', 'true');
+        dropdown.setAttribute('aria-hidden', 'false');
         for (let el of elements) {
             el.removeAttribute('tabindex');
         }
@@ -560,6 +570,54 @@ function handlePopupExternalEvent(toggleButton, togglerActiveClass, popupOpenCla
 
 // --------------- Popups & dropdowns functions end
 
+// ---------------- Collapsible sections handlers
+
+/**
+ * Get passed-in section's collapsible elements, their controlling
+ * button and the button text to change with button state.
+ * 
+ * Add 'click' event listener to button. On click, add/remove
+ * classes and set aria-attributes to elements and button as
+ * appropriate, based on button state.
+ * 
+ * @param {HTMLElement} section - Section element containing collapsible elements and collapse/expand button
+ */
+function handleCollapseSection(section) {
+    const collapsibleEls = section.querySelectorAll('.collapsible');
+    const collapseBtn = section.querySelector('.more-btn');
+    const btnText = collapseBtn.querySelector('span');
+
+    collapseBtn.addEventListener('click', (e) => {
+        // Only target entire button element
+        let targetButton = e.target.closest('button');
+        if (!targetButton) return;
+
+        if (collapseBtn.classList.contains('show-more')) {
+            for (let el of collapsibleEls) {
+                el.classList.add('expanded');
+                el.classList.remove('collapsed');
+                el.setAttribute('aria-hidden', 'false');
+            }
+            collapseBtn.classList.remove('show-more');
+            collapseBtn.classList.add('show-less');
+            btnText.innerHTML = 'less';
+            collapseBtn.setAttribute('aria-expanded', 'true');
+        } else if (collapseBtn.classList.contains('show-less')) {
+            for (let el of collapsibleEls) {
+                el.classList.add('collapsed');
+                el.classList.remove('expanded');
+                el.setAttribute('aria-hidden', 'true');
+            }
+            collapseBtn.classList.remove('show-less');
+            collapseBtn.classList.add('show-more');
+            btnText.innerHTML = 'more';
+            collapseBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+}
+
+// --------------- Collapsible sections handlers end
+
 // -------------------- Landing page handlers
 
 /**
@@ -578,7 +636,7 @@ function handleHeaderLogoDisplay(controlElement) {
     const headerLogo = document.querySelector('#header-logo');
     const logoImgLink = headerLogo.querySelector('.header-img-link');
     const logoImg = logoImgLink.querySelector('img');
-    const logoTxt = headerLogo.querySelector('p');
+    const logoTxt = headerLogo.querySelector('h1');
     const logoBreak = logoTxt.querySelector('br');
     let changePoint;
 
@@ -611,8 +669,8 @@ function handleHeaderLogoDisplay(controlElement) {
             logoTxt.classList.remove('logo-txt-std');
             logoImg.classList.add('shrink-hide');
             logoImg.classList.remove('logo-size');
-            logoImgLink.setAttribute('tabindex', -1);
-            logoImgLink.setAttribute('aria-hidden', true);
+            logoImgLink.setAttribute('tabindex', '-1');
+            logoImgLink.setAttribute('aria-hidden', 'true');
         }
     });
 }
@@ -729,23 +787,23 @@ function handleContactFormEmailJS(contactForm) {
             (response) => {
                 console.log('SUCCESS!', response.status, response.text);
                 submitBtnSection.classList.add('shrink-hide');
-                submitBtnSection.setAttribute('aria-hidden', true);
-                submitBtnSection.querySelector('button').setAttribute('disabled', true); // hidden submit button
-                submitBtnSection.querySelector('textarea').setAttribute('disabled', true); // hidden Google reCAPTCHA
-                contactForm.querySelector('.failure-email-link').setAttribute('disabled', true); // hidden link in failure message
+                submitBtnSection.setAttribute('aria-hidden', 'true');
+                submitBtnSection.querySelector('button').setAttribute('disabled', ''); // hidden submit button
+                submitBtnSection.querySelector('textarea').setAttribute('disabled', ''); // hidden Google reCAPTCHA
+                contactForm.querySelector('.failure-email-link').setAttribute('disabled', ''); // hidden link in failure message
                 successMsg.classList.remove('cf-hidden');
-                successMsg.setAttribute('aria-hidden', false);
+                successMsg.setAttribute('aria-hidden', 'false');
                 // resubmit modal, if any, to trapKeyNavFocus() function
                 if (modal) trapKeyNavFocus(modal);
             },
             (error) => {
                 console.log('FAILED...', error);
                 submitBtnSection.classList.add('shrink-hide');
-                submitBtnSection.setAttribute('aria-hidden', true);
-                submitBtnSection.querySelector('button').setAttribute('disabled', true); // hidden submit button
-                submitBtnSection.querySelector('textarea').setAttribute('disabled', true); // hidden Google reCAPTCHA
+                submitBtnSection.setAttribute('aria-hidden', 'true');
+                submitBtnSection.querySelector('button').setAttribute('disabled', ''); // hidden submit button
+                submitBtnSection.querySelector('textarea').setAttribute('disabled', ''); // hidden Google reCAPTCHA
                 failureMsg.classList.remove('cf-hidden');
-                failureMsg.setAttribute('aria-hidden', false);
+                failureMsg.setAttribute('aria-hidden', 'false');
                 // resubmit modal, if any, to trapKeyNavFocus() function
                 if (modal) trapKeyNavFocus(modal);
             },

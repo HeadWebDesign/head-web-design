@@ -24,7 +24,7 @@ body {
 }
 
 body a {
-    color: #8f897e;
+    color: #fff;
     font-weight: 700;
     text-decoration: none !important;
 }
@@ -166,16 +166,30 @@ button:focus:not(:focus-visible) {
 }
 
 .btn-darkgrey:focus {
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: #fff !important;
+}
+
+.btn-wide-fit {
+    width: auto !important;
+}
+
+.more-btn {
+    width: 87.5px !important;
+    height: 87.5px;
+    border-radius: 50%;
+}
+
+.more-btn i {
+    transition: scale 0.5s ease-in-out;
+}
+
+.more-btn.show-less i {
+    transform: scale(-1, -1);
 }
 
 .link-btn {
     background: transparent;
     text-decoration: underline;
-}
-
-.btn-wide-fit {
-    width: auto !important;
 }
 
 /* ------------ main header ----------- */
@@ -218,7 +232,7 @@ button:focus:not(:focus-visible) {
     width: 130px;
 }
 
-#header-logo p {
+#header-logo h1 {
     /* font-family: 'Orbitron', sans-serif; */
     font-family: 'Tektur', sans-serif;
     font-weight: 400;
@@ -235,7 +249,7 @@ button:focus:not(:focus-visible) {
     font-size: 4rem;
 }
 
-#header-logo img, #header-logo p {
+#header-logo img, #header-logo h1 {
     transition: all 0.35s ease-in-out;
 }
 
@@ -405,6 +419,18 @@ main {
     text-decoration: none !important;
 }
 
+/* generic section styles */
+
+.white-container {
+    background-color: #fff;
+    color: #000;
+}
+
+.green-container {
+    background-color: #008f18;
+    /* color: #fff; */
+}
+
 /* ------------ footer ------------ */
 
 footer {
@@ -527,6 +553,11 @@ footer hr {
 
 /* general styles */
 
+#landing-intro .section-header h2, #landing-projects .section-header h2 {
+    color: #008f18;
+    font-weight: 400;
+}
+
 #landing-banner .banner-els-container {
     position: relative;
 }
@@ -548,8 +579,66 @@ footer hr {
     font-weight: 400;
 }
 
-.about-container {
-    height: 100vh;
+/* intro section */
+
+#landing-intro {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#landing-intro .section-content {
+    font-size: 1.25rem;
+}
+
+#landing-intro .collapsible  {
+    transition: max-height 0.6s ease-in-out,
+                margin 0.8s ease-in-out,
+                opacity 1s ease-in-out;
+}
+
+.intro-foot {
+    position: relative;
+}
+
+.intro-foot .more-btn-wrap {
+    position: absolute;
+    bottom: -68.75px;
+}
+
+#landing-intro .more-btn {
+    font-size: 1.15rem;
+    line-height: 1;
+    padding: 0 !important;
+    margin: 0 auto;
+    display: none;
+}
+
+#landing-intro .more-btn:active {
+    font-size: 1rem;
+}
+
+/* projects section */
+
+#landing-projects .section-header p {
+    font-size: 1.5rem;
+}
+
+.project-scrshot img {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.65);
+    transition: all 0.5s ease-in-out;
+}
+
+@media(hover: hover) and (pointer: fine) {
+    .project-scrshot img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px 10px rgba(255, 255, 255, 0.65);
+    }
+}
+
+.project-scrshot p {
+    font-size: 1.25rem;
 }
 
 
@@ -710,6 +799,26 @@ footer hr {
 
     #landing-cta-btns {
         bottom: 0;
+    }
+
+    #landing-intro .section-content {
+        font-size: 1rem;
+    }
+
+    #landing-intro .more-btn {
+        display: block;
+    }
+
+    #landing-intro .collapsed {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    #landing-intro .expanded {
+        max-height: 500px;
+        opacity: 1;
     }
 }
 
