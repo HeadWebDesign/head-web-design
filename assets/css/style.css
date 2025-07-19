@@ -140,7 +140,6 @@ button:focus:not(:focus-visible) {
 }
 
 .btn-darkgrey {
-    color: #fff;
     border: 1px solid #0a0a0a;
     background: linear-gradient(135deg, #2c3136, #1d2023);
     width: auto !important;
@@ -444,6 +443,8 @@ main {
 
 /* ------------ footer ------------ */
 
+/* general styles */
+
 footer {
     /* font-family: 'Roboto Condensed', sans-serif; */
     font-family: 'consolas', 'Source Code Pro', sans-serif;
@@ -457,8 +458,9 @@ footer hr {
     margin: auto;
 }
 
+/* contact & social media links */
+
 .footer-contact-social-links {
-    color: #fff;
     font-size: 1.5rem;
     list-style-type: none;
     margin-bottom: 0;
@@ -473,7 +475,7 @@ footer hr {
     padding: 1.5rem 0;
 }
 
-.footer-contact-social-links i, footer a {
+.footer-contact-social-links i {
     color: #fff;
 }
 
@@ -487,18 +489,43 @@ footer hr {
     }
 }
 
+/* useful links section */
+
+#footer-useful-links h4 {
+    color: #008f18;
+}
+
+#footer-useful-links li {
+    padding: 15px 0;
+}
+
+#footer-useful-links li a {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+@media(hover: hover) and (pointer: fine) {
+    #footer-useful-links li a:hover {
+        color: #fff;
+    }
+}
+
+/* copyright */
+
 #copyright-statement, #company-plug {
     font-weight: 500;
     text-align: center;
 }
 
 #copyright-statement {
+    padding: 0 5px;
     margin-top: 10px;
     font-size: 1rem;
 }
 
 #company-plug {
-    padding: 5px 0 10px 0;
+    padding: 5px 5px 10px;
     font-size: 0.75rem;
 }
 
@@ -533,7 +560,6 @@ footer hr {
 .footer-contact-link-modal .modal-content {
     height: 100%;
     background: linear-gradient(180deg, #0e1011, #2c3136);
-    color: #fff;
 }
 
 .footer-contact-link-modal .close {
@@ -546,7 +572,6 @@ footer hr {
 }
 
 .footer-contact-link-modal a {
-    color: #fff;
     text-decoration: none !important;
 }
 
@@ -868,6 +893,12 @@ footer hr {
 
     .logo-txt-br-solo {
         display: block;
+    }
+
+    /* footer */
+
+    #footer-useful-links li a {
+        font-size: 1rem;
     }
 
     /* landing page */
