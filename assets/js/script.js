@@ -600,7 +600,7 @@ function handleCollapseSection(section) {
             }
             collapseBtn.classList.remove('show-more');
             collapseBtn.classList.add('show-less');
-            btnText.innerHTML = 'less';
+            btnText.innerHTML = 'Less';
             collapseBtn.setAttribute('aria-expanded', 'true');
         } else if (collapseBtn.classList.contains('show-less')) {
             for (let el of collapsibleEls) {
@@ -610,7 +610,7 @@ function handleCollapseSection(section) {
             }
             collapseBtn.classList.remove('show-less');
             collapseBtn.classList.add('show-more');
-            btnText.innerHTML = 'more';
+            btnText.innerHTML = 'More';
             collapseBtn.setAttribute('aria-expanded', 'false');
         }
     });

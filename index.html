@@ -54,53 +54,37 @@
                     <li>
                         <a href="index.html" class="active-link main-menu-item">Home</a>
                     </li>
+                    <li>
+                        <a href="services.html" class="main-menu-item">Services</a>
+                    </li>
+                    <li>
+                        <a href="about.html" class="main-menu-item">About Us</a>
+                    </li>
+                    <li>
+                        <a href="contact.html" class="main-menu-item">Contact Us</a>
+                    </li>
 
-                    <!-- Services dropdown list -->
+                    <!-- 'More' dropdown list -->
                     <li class="navbar-dropdown-menu-container">
-                        <button id="services-dropdown-btn" class="main-menu-item navbar-dropdown-btn menu-toggle-btn toggle-btn" aria-expanded="false" aria-controls="navbar-services-menu">
-                            <span class="menu-btn-text">Services</span>
+                        <button id="more-dropdown-btn" class="main-menu-item navbar-dropdown-btn menu-toggle-btn toggle-btn" aria-expanded="false" aria-controls="navbar-more-menu">
+                            <span class="menu-btn-text">More</span>
                         </button>
-                        <div id="navbar-services-menu" class="navbar-dropdown-menu">
+                        <div id="navbar-more-menu" class="navbar-dropdown-menu">
                             <ul>
                                 <li>
-                                    <a href="#" class="navbar-dropdown-item">Web Design</a>
+                                    <a href="projects.html" class="navbar-dropdown-item">Project Examples</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="navbar-dropdown-item">Web Design Pricing</a>
+                                    <a href="news.html" class="navbar-dropdown-item">News &#38; Tips</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="navbar-dropdown-item">Update &amp; Care Packages</a>
+                                    <a href="faqs.html" class="navbar-dropdown-item">FAQs</a>
+                                </li>
+                                <li>
+                                    <a href="extlinks.html" class="navbar-dropdown-item">Useful Links</a>
                                 </li>
                             </ul>
                         </div>
-                    </li>
-
-                    <li>
-                        <a href="about.html" class="main-menu-item">About</a>
-                    </li>
-                    <!-- <li>
-                        <a href="portfolio.html">Projects</a>
-                    </li> -->
-
-                    <!-- Contact dropdown list -->
-                    <li class="navbar-dropdown-menu-container">
-                        <button id="contact-dropdown-btn" class="main-menu-item navbar-dropdown-btn menu-toggle-btn toggle-btn" aria-expanded="false" aria-controls="navbar-contact-menu">
-                            <span class="menu-btn-text">Contact</span>
-                        </button>
-                        <div id="navbar-contact-menu" class="navbar-dropdown-menu">
-                            <ul>
-                                <li>
-                                    <a href="#" class="navbar-dropdown-item">Arrange a Quote</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="navbar-dropdown-item">Contact Info</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li>
-                        <a href="news.html" class="main-menu-item">News &amp; Tips</a>
                     </li>
                 </ul>
             </div>
@@ -140,15 +124,16 @@
                     </div>
                     <div class="row-no-gutters">
                         <div class="col-12 section-content py-4">
-                            <p>Creating effective, bespoke website solutions for an eye-catching online presence. Head Web Design delivers intuitive, visually appealing front-end designs, built with site speed, responsiveness &#38; SEO in mind. We also provide ongoing care plans in order to ensure the integrity, vitality &#38; freshness of your website.</p>
-                            <p id="par-2" class="collapsible collapsed" aria-hidden="true">We design &#38; build every project with a Mobile-First approach, ensuring that your website looks good on all devices across a wide range of screen sizes &#38; resolutions. We pay particular attention to On Page SEO, intuitive navigation, performance speed &#38; overall user experience throughout the process. None of our code is AI generated.</p>
+                            <p>Creating effective, bespoke website solutions for an eye-catching online presence, Head Web Design delivers intuitive, visually appealing front-end designs, built with site speed, responsiveness &#38; SEO in mind. We also provide ongoing care plans in order to ensure the integrity, vitality &#38; freshness of your website.</p>
+                            <p id="par-2" class="collapsible collapsed" aria-hidden="true">We design &#38; build every project with a Mobile-First approach, ensuring that your website looks good on all devices across a wide range of screen sizes &#38; resolutions. We pay particular attention to Technical &#38; On Page SEO, intuitive navigation, performance speed &#38; overall user experience throughout the process. None of our code is AI generated.</p>
                             <p id="par-3" class="collapsible collapsed" aria-hidden="true">Specialising in Brochure websites for individuals, events &#38; small businesses, we also offer&#58; online sales capability &#38; integration with E-Commerce platforms&#59; integration with booking platforms &#38; email forwarding services&#59; content management systems&#59; copywriting &#38; proofreading services&#59; image editing&#47;creation &#38; logo design&#59; website migration &#38; more.</p>
                             <p id="par-4" class="collapsible collapsed" aria-hidden="true">Our ultimate aim is to provide a high-quality service while offering excellent value for money &#38; we'll always take the size of your budget into account. We will advise you on the best, most cost-effective hosting options, etc. &#38; work with you to find the most satisfactory solutions to all your needs, for the best possible price.</p>
                         </div>
                     </div>
+                    <!-- Section footer with 'Read more' button will only appear on mobile screens (< 460px wide) to facilitate collapse/expansion of last 3 paragraphs above. Better UX than scrolling through on mobile. -->
                     <div class="row intro-foot">
                         <div class="col-12 section-footer more-btn-wrap">
-                            <button type="button" class="btn btn-cta btn-darkgrey btn-effect more-btn show-more" aria-label="click here to read more (expands above text)" aria-expanded="false" aria-controls="par-2 par-3 par-4">Read<br><span>more</span><br><i class="fa-solid fa-chevron-down"></i></button>
+                            <button type="button" class="btn btn-cta btn-darkgrey btn-effect more-btn show-more" aria-label="click here to read more (expands above text)" aria-expanded="false" aria-controls="par-2 par-3 par-4">Read<br><span>More</span><br><i class="fa-solid fa-chevron-down"></i></button>
                         </div>
                     </div>
                 </section>
@@ -181,6 +166,26 @@
                         </div>
                     </div>
                 </section>
+            </div>
+        </div>
+
+        <!-- Contact Us section -->
+        <div class="container-wrapper">
+            <div id="landing-contact" class="container-fluid jumbotron-container green-container landing-contact-section">
+                <div class="row-no-gutters">
+                    <div class="col-12 jumbotron-wrap px-0 py-3">
+                        <section class="jumbotron text-center">
+                            <i class="fa-regular fa-comments top-icon mb-3"></i>
+                            <!-- <h2 class="jumbotron-heading pb-0">Have a project in mind&#63;</h2> -->
+                            <h2 class="jumbotron-heading pb-0">Got a project&#63;</h2>
+                            <h3 class="jumbotron-sub-head pb-0"><i class="fa-regular fa-comment"></i> Get in touch today <i class="fa-regular fa-comment"></i></h3>
+                            <!-- <p>FREE 1-hour consultation for all new clients&#33;</p> -->
+                            <a href="contact.html" class="btn btn-lg btn-cta btn-wide-fit btn-outline">Contact Head Web Design <i class="fa-solid fa-keyboard"></i></a>
+                            <!-- <br>
+                            <a href="faqs.html" class="btn btn-lg btn-cta btn-outline mt-2"><i class="fa-regular fa-circle-question"></i> FAQs</a> -->
+                        </section>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -224,7 +229,7 @@
         </div>
         <!-- company plug -->
         <div id="company-plug">
-            Website design &amp; build by <a href="https://www.headwebdesign.ie/" target="_blank" rel="noopener" aria-label="Head Web Design homepage (opens in a new tab)">Head Web Design</a> &copy; <span class="copyright-year"></span>: all rights reserved
+            Website design &#38; build by <a href="https://www.headwebdesign.ie/" target="_blank" rel="noopener" aria-label="Head Web Design homepage (opens in a new tab)">Head Web Design</a> &copy; <span class="copyright-year"></span>: all rights reserved
         </div>
 
     </footer>

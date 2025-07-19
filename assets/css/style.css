@@ -21,11 +21,12 @@ body {
     font-family: 'consolas', 'Source Code Pro', sans-serif;
     background-color: #000;
     color: #fff;
+    min-height: 100vh;
 }
 
 body a {
     color: #fff;
-    font-weight: 700;
+    font-weight: 600;
     text-decoration: none !important;
 }
 
@@ -37,6 +38,7 @@ body a {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Tektur', sans-serif;
+    font-weight: 400;
     padding: 5px 0;
 }
 
@@ -133,7 +135,6 @@ button:focus:not(:focus-visible) {
 }
 
 .btn-cta {
-    font-weight: bold;
     border-radius: 23px;
     width: 160px;
 }
@@ -171,6 +172,16 @@ button:focus:not(:focus-visible) {
 
 .btn-wide-fit {
     width: auto !important;
+}
+
+.btn-outline {
+    border: 2px solid #fff;
+}
+
+@media(hover: hover) and (pointer: fine) {
+    .btn-outline:hover {
+        color: #fff !important;
+    }
 }
 
 .more-btn {
@@ -235,7 +246,6 @@ button:focus:not(:focus-visible) {
 #header-logo h1 {
     /* font-family: 'Orbitron', sans-serif; */
     font-family: 'Tektur', sans-serif;
-    font-weight: 400;
     line-height: 1;
     color: #008f18;
     margin-left: 5px;
@@ -326,12 +336,13 @@ button:focus:not(:focus-visible) {
     top: 60px;
     left: 0;
     height: 0;
-    width: 205px;
     overflow: hidden;
 }
 
-#navbar-services-menu {
-    width: 275px;
+#navbar-more-menu {
+    left: auto;
+    right: 0;
+    width: 183px;
 }
 
 .navbar-dropdown-menu ul {
@@ -398,6 +409,18 @@ main {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+/* generic section styles */
+
+.white-container {
+    background-color: #fff;
+    color: #000;
+}
+
+.green-container {
+    background-color: #008f18;
+    /* color: #fff; */
+}
+
 /* Jumbotron */
 
 .jumbotron {
@@ -409,26 +432,14 @@ main {
     margin-bottom: 30px;
 }
 
-.jumbotron h1, .jumbotron h2, .jumbotron h3 {
-    font-weight: bold;
-}
+/* .jumbotron p {
+    font-size: 1.25rem;
+} */
 
 /* accordions */
 
 .accordion a:focus {
     text-decoration: none !important;
-}
-
-/* generic section styles */
-
-.white-container {
-    background-color: #fff;
-    color: #000;
-}
-
-.green-container {
-    background-color: #008f18;
-    /* color: #fff; */
 }
 
 /* ------------ footer ------------ */
@@ -555,7 +566,6 @@ footer hr {
 
 #landing-intro .section-header h2, #landing-projects .section-header h2 {
     color: #008f18;
-    font-weight: 400;
 }
 
 #landing-banner .banner-els-container {
@@ -573,10 +583,6 @@ footer hr {
     position: absolute;
     bottom: 5px;
     left: 0;
-}
-
-#landing-banner .btn-cta {
-    font-weight: 400;
 }
 
 /* intro section */
@@ -639,6 +645,26 @@ footer hr {
 
 .project-scrshot p {
     font-size: 1.25rem;
+}
+
+/* contact section */
+
+.landing-contact-section .jumbotron {
+    padding-top: 2rem;
+}
+
+.landing-contact-section .jumbotron .top-icon {
+    font-size: 3rem;
+}
+
+.jumbotron-sub-head i:nth-of-type(2) {
+    transform: scale(-1, 1);
+}
+
+.landing-contact-section .btn-lg .fa-keyboard {
+    font-weight: 600;
+    font-size: 1.5rem;
+    transform: translateY(2.5px);
 }
 
 
@@ -820,6 +846,14 @@ footer hr {
         max-height: 500px;
         opacity: 1;
     }
+
+    .jumbotron-sub-head {
+        font-size: 1.5rem;
+    }
+
+    .landing-contact-section .btn-lg {
+        font-size: 1.15rem;
+    }
 }
 
 /* for the smallest screens, up to 359 pixels wide */
@@ -834,5 +868,19 @@ footer hr {
 
     .logo-txt-br-solo {
         display: block;
+    }
+
+    /* landing page */
+
+    #landing-projects .section-header p {
+        font-size: 1.25rem;
+    }
+
+    .jumbotron-sub-head {
+        font-size: 1.3rem;
+    }
+
+    .landing-contact-section .btn-lg {
+        font-size: 1rem;
     }
 }
