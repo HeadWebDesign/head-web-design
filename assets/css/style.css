@@ -417,7 +417,6 @@ main {
 
 .green-container {
     background-color: #008f18;
-    /* color: #fff; */
 }
 
 /* Jumbotron */
@@ -430,10 +429,6 @@ main {
 .jumbotron h1 {
     margin-bottom: 30px;
 }
-
-/* .jumbotron p {
-    font-size: 1.25rem;
-} */
 
 /* accordions */
 
@@ -452,7 +447,6 @@ footer {
 }
 
 footer hr {
-    /* background-color: #4d4d4d; */
     background-color: #fff;
     width: 90%;
     margin: auto;
@@ -551,6 +545,13 @@ footer hr {
             /*                                  */
             /************************************/
 
+/* general styles */
+
+/* override Bootstrap default padding */
+.modal {
+    padding: 0 !important;
+}
+
 /* footer contact links */
 
 .footer-contact-link-modal {
@@ -600,6 +601,7 @@ footer hr {
 #landing-banner-img img {
     width: 100%;
     max-width: 600px;
+
     display: flex;
     justify-self: center;
 }
@@ -709,7 +711,6 @@ footer hr {
     /* general bootstrap override */
 
     .container {
-        max-width: none;
         margin: auto;
         padding: 0 30px;
     }
@@ -868,7 +869,7 @@ footer hr {
     }
 
     #landing-intro .expanded {
-        max-height: 500px;
+        max-height: 900px;
         opacity: 1;
     }
 

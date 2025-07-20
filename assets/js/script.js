@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //  ------------------ Contact forms
 
-    /* Get contact form(s) from the page and if found, pass to handler
-       function */
+    // Get contact form(s) from the page and if found, pass to handler function
 
     const contactForms = document.querySelectorAll('.contact-form');
 
@@ -25,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    /* Get Google reCAPTCHA(s) from the page and if found, pass to
-       handler function for resizing */
+    /* Get Google reCAPTCHA(s) from the page and if found, pass to handler function
+       for resizing */
     
     const captchas = document.querySelectorAll('.g-recaptcha');
 
@@ -56,8 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ----------------- Navigation dropdowns
 
-    /* Get all navigation dropdown lists from the page and if found, pass each
-       one to handler function */
+    /* Get all navigation dropdown lists from the page and if found, pass each one
+       to handler function */
 
     const dropdowns = document.querySelectorAll('.navbar-dropdown-menu-container');
 
@@ -95,6 +94,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ---------------------- Modals
 
+    /* Get all popup modals from the page and if found, pass each one to handler
+       function */
+
     const modals = document.querySelectorAll('.modal');
 
     if (modals.length > 0) {
@@ -104,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --------------- Collapsible sections
+
+    /* Get all collapsible sections from the page and if found, pass each one
+       to handler function */
 
     const collapseSections = document.querySelectorAll('.collapse-section');
 
@@ -126,8 +131,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ---------------- Bootstrap Accordions
 
-    /* Get all Bootstrap 'accordion' components from the page and if found,
-       pass each one to handler function */
+    /* Get all Bootstrap 'accordion' components from the page and if found, pass
+       each one to handler function */
 
     // const accordions = document.querySelectorAll('.accordion');
 
@@ -777,6 +782,7 @@ function handleContactFormEmailJS(contactForm) {
         let templateParams = {
             'first_name': contactForm.firstname.value,
             'last_name': contactForm.surname.value,
+            'company_name': contactForm.company.value,
             'email_addr': contactForm.email.value,
             'phone_no': contactForm.phone.value,
             'message': contactForm.message.value,
