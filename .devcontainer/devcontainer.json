@@ -21,5 +21,7 @@
         "esbenp.prettier-vscode"
       ]
     }
-  }
+  },
+
+  "remoteUser": "root"
 }
